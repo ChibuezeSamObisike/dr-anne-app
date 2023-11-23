@@ -7,7 +7,17 @@ const ButtomDialog = () => {
   const isSmallScreen = useSmallScreen();
   if (isSmallScreen) {
     return (
-      <Drawer anchor='bottom' open={true} sx={{ borderRadius: "10px" }}>
+      <Drawer
+        anchor='bottom'
+        open={true}
+        sx={{
+          borderRadius: "10px",
+          ".css-9emuhu-MuiPaper-root-MuiDrawer-paper": {
+            borderTopLeftRadius: "10px",
+            borderTopRightRadius: "10px",
+          },
+        }}
+      >
         <Box p={3} borderRadius='4px'>
           <DisclaimerBox />
         </Box>
@@ -24,6 +34,7 @@ const ButtomDialog = () => {
         width: "100%",
         zIndex: 1000,
         bgcolor: "#00000052",
+        backdropFilter: "blur(7px)",
       }}
     >
       <Box
