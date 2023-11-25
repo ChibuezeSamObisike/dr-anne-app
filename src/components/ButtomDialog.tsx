@@ -12,7 +12,7 @@ const ButtomDialog = () => {
         open={true}
         sx={{
           borderRadius: "10px",
-          ".css-9emuhu-MuiPaper-root-MuiDrawer-paper": {
+          "& > .css-9emuhu-MuiPaper-root-MuiDrawer-paper": {
             borderTopLeftRadius: "10px",
             borderTopRightRadius: "10px",
           },

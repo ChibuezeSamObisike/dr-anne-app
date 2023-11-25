@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -9,7 +9,8 @@ import {
 } from "@mui/material";
 import { ForwardIcon } from "../assets/svg";
 
-const BottomInput: React.FC<any> = () => {
+const BottomInput: React.FC<any> = ({ mutation }: any) => {
+  const [inputText, setInputText] = useState("");
   return (
     <Box
       sx={{
@@ -24,6 +25,8 @@ const BottomInput: React.FC<any> = () => {
       }}
     >
       <TextField
+        value={inputText}
+        onChange={(e) => setInputText(e?.target?.value)}
         placeholder='Please describe your symptoms'
         variant='outlined'
         sx={{ p: 3 }}
@@ -32,7 +35,10 @@ const BottomInput: React.FC<any> = () => {
           endAdornment: (
             <InputAdornment position='end'>
               {" "}
-              <Button sx={{ py: 2, bgcolor: "#4F7A21" }}>
+              <Button
+                sx={{ py: 2, bgcolor: "#4F7A21" }}
+                onClick={() => mutation({ message: inputText })}
+              >
                 <ForwardIcon />
               </Button>
             </InputAdornment>
