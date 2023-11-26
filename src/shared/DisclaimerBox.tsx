@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import { ForwardIcon, WarningIcon } from "../assets/svg";
 
-const DisclaimerBox = () => {
+const DisclaimerBox = (): JSX.Element => {
   return (
     <Box>
       <WarningIcon />

@@ -17,10 +17,20 @@ function App() {
   >([{ question: "", answer: "" }]);
 
   const mutation = useMutation({
-    mutationFn: (message: string) => {
+    mutationFn: ({ message }: { message: string }) => {
       return http.post("chat/", message);
     },
+    onSuccess: (data) => {
+      console.log("Log was successful", data);
+    },
+    onError: (err) => {
+      console.log("An unsuccessfull error occured", err);
+    },
   });
+
+  useEffect(() => {
+    mutation.mutate({ message: "who is elon musk" });
+  }, []);
 
   const history = useQuery({
     queryKey: ["history"],
@@ -28,7 +38,7 @@ function App() {
   });
 
   useEffect(() => {
-    console.log("History Obj", history);
+    console.log("History Obj", history?.data);
   }, [history]);
 
   return (
