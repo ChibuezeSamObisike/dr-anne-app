@@ -10,10 +10,6 @@ const Navbar: React.FC<any> = () => {
           <Typography sx={{ ml: 1 }}>Drai</Typography>
           <Chip label='Beta' sx={{ ml: 1 }} />
         </Box>
-
-        <IconButton>
-          <MoonIcon />
-        </IconButton>
       </Box>
     </Container>
   );

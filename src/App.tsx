@@ -9,45 +9,44 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 function App() {
-  const [questionAndAnswer, setQuestionAnswer] = useState<
-    {
-      question: string;
-      answer: string;
-    }[]
-  >([{ question: "", answer: "" }]);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const mutation = useMutation({
-    mutationFn: ({ message }: { message: string }) => {
+    mutationFn: (message: Object) => {
+      console.log("The message is here", message);
       return http.post("chat/", message);
     },
-    onSuccess: (data) => {
-      console.log("Log was successful", data);
+    onSuccess(data) {
+      console.log("Data", data);
+      setAnswer(data?.data?.reply);
+      setQuestion("");
     },
-    onError: (err) => {
-      console.log("An unsuccessfull error occured", err);
+    onError(error) {
+      console.log("Error", error);
     },
   });
 
-  useEffect(() => {
-    mutation.mutate({ message: "who is elon musk" });
-  }, []);
-
-  const history = useQuery({
-    queryKey: ["history"],
-    queryFn: () => http.get("history"),
-  });
-
-  useEffect(() => {
-    console.log("History Obj", history?.data);
-  }, [history]);
+  // const history = useQuery({
+  //   queryKey: ["history"],
+  //   queryFn: () => http.get("history/"),
+  // });
 
   return (
     <Box>
       <Navbar />
-      <SingleChatBlock />
+      <SingleChatBlock
+        isLoading={mutation.isPending}
+        question={question}
+        answer={answer}
+      />
       {/* <ButtomDialog /> */}
       <Box display='flex' alignItems='center' justifyContent='center'>
-        <BottomInput mutation={mutation} />
+        <BottomInput
+          mutation={mutation}
+          onChange={setQuestion}
+          question={question}
+        />
       </Box>
     </Box>
   );

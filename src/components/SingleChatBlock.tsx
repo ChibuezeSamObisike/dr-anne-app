@@ -1,24 +1,70 @@
 import { Box, Container, Typography } from "@mui/material";
 import React from "react";
 import { ChatUserIcon } from "../assets/svg";
+import drAnnIcon from "../assets/Female Doctor 1.png";
 
-const SingleChatBlock = () => {
+import { SyncLoader } from "react-spinners";
+
+const SingleChatBlock = ({ question, answer, isLoading }: any) => {
+  console.log("Is loading", isLoading);
   return (
-    <Container
-      sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-    >
-      <Box display='flex' alignItems='flex-start' width='70%'>
-        <ChatUserIcon />
-        <Typography ml={3}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa
-          mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,
-          mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis
-          tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non
-          suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at
-          maximus ante fermentum sit amet.
-        </Typography>
-      </Box>
-    </Container>
+    <>
+      {question && (
+        <Container
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Box
+            display='flex'
+            alignItems='center'
+            justifyContent='space-between'
+            width='70%'
+          >
+            <Box width='40px'>
+              <ChatUserIcon />
+            </Box>
+            <Typography sx={{ width: "80%" }} ml={3}>
+              {question}
+            </Typography>
+          </Box>
+        </Container>
+      )}
+
+      <Container
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: "30px",
+        }}
+      >
+        <Box
+          display='flex'
+          alignItems='flex-start'
+          width='70%'
+          justifyContent='space-between'
+        >
+          {isLoading || !answer ? null : (
+            <Box width='40px'>
+              {" "}
+              <img src={drAnnIcon} alt='dr icon' />
+            </Box>
+          )}
+          {isLoading ? (
+            <SyncLoader />
+          ) : (
+            <Typography
+              component='div'
+              sx={{ marginRight: "50px", width: "80%" }}
+              dangerouslySetInnerHTML={{ __html: answer }}
+            ></Typography>
+          )}
+        </Box>
+      </Container>
+    </>
   );
 };
 
