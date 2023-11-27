@@ -5,7 +5,7 @@ import drAnnIcon from "../assets/Female Doctor 1.png";
 
 import { SyncLoader } from "react-spinners";
 
-const SingleChatBlock = ({ question, answer, isLoading }: any) => {
+const SingleChatBlock = ({ question, answer, isLoading, role }: any) => {
   console.log("Is loading", isLoading);
   return (
     <>
@@ -24,7 +24,11 @@ const SingleChatBlock = ({ question, answer, isLoading }: any) => {
             width='70%'
           >
             <Box width='40px'>
-              <ChatUserIcon />
+              {role && role !== "user" ? (
+                <img src={drAnnIcon} alt='dr icon' />
+              ) : (
+                <ChatUserIcon />
+              )}
             </Box>
             <Typography sx={{ width: "80%" }} ml={3}>
               {question}
@@ -50,7 +54,11 @@ const SingleChatBlock = ({ question, answer, isLoading }: any) => {
           {isLoading || !answer ? null : (
             <Box width='40px'>
               {" "}
-              <img src={drAnnIcon} alt='dr icon' />
+              {role && role !== "assistant" ? (
+                <ChatUserIcon />
+              ) : (
+                <img src={drAnnIcon} alt='dr icon' />
+              )}
             </Box>
           )}
           {isLoading ? (

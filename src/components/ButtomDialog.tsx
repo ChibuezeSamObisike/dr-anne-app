@@ -3,7 +3,7 @@ import { Box, Drawer } from "@mui/material";
 import DisclaimerBox from "../shared/DisclaimerBox";
 import useSmallScreen from "../hooks/useSmallScreen";
 
-const ButtomDialog = () => {
+const ButtomDialog = ({ setOpenDisclaimer }: any) => {
   const isSmallScreen = useSmallScreen();
   if (isSmallScreen) {
     return (
@@ -19,7 +19,7 @@ const ButtomDialog = () => {
         }}
       >
         <Box p={3} borderRadius='4px'>
-          <DisclaimerBox />
+          <DisclaimerBox onClick={() => setOpenDisclaimer(false)} />
         </Box>
       </Drawer>
     );
@@ -44,7 +44,7 @@ const ButtomDialog = () => {
         bgcolor='#fff'
         borderRadius='8px'
       >
-        <DisclaimerBox />
+        <DisclaimerBox onClick={() => setOpenDisclaimer(false)} />
       </Box>
     </Box>
   );

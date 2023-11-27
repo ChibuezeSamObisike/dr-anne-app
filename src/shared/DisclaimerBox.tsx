@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import { ForwardIcon, WarningIcon } from "../assets/svg";
 
-const DisclaimerBox = (): JSX.Element => {
+const DisclaimerBox = ({ onClick }: any): JSX.Element => {
   return (
     <Box>
       <WarningIcon />
@@ -13,7 +13,7 @@ const DisclaimerBox = (): JSX.Element => {
         medical advice, diagnosis, or treatment.{" "}
       </Typography>
 
-      <Button sx={{ color: "#4F7A21" }}>
+      <Button sx={{ color: "#4F7A21" }} onClick={onClick}>
         Continue <ForwardIcon />
       </Button>
     </Box>

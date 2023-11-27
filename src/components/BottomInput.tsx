@@ -13,7 +13,6 @@ import InfoIcon from "@mui/icons-material/Info";
 import { SyncLoader } from "react-spinners";
 
 const BottomInput: React.FC<any> = ({ mutation, onChange, question }: any) => {
-  const [inputText, setInputText] = useState(question);
   const supportItem = [
     {
       title: "/help",
@@ -36,12 +35,12 @@ const BottomInput: React.FC<any> = ({ mutation, onChange, question }: any) => {
   const [openHelpModal, setOpenHelpModal] = useState(false);
 
   useEffect(() => {
-    if (inputText.includes("/")) {
+    if (question.includes("/")) {
       setOpenHelpModal(true);
     } else {
       setOpenHelpModal(false);
     }
-  }, [inputText]);
+  }, [question]);
 
   return (
     <Box
@@ -56,20 +55,6 @@ const BottomInput: React.FC<any> = ({ mutation, onChange, question }: any) => {
         flexDirection: "column",
       }}
     >
-      <Box
-        bgcolor='#E6F4D7'
-        color='You have 20 messages left on this free trial'
-        display='flex'
-        alignItems='center'
-        sx={{ width: "100%" }}
-        p={2}
-        borderRadius='12px'
-      >
-        <InfoIcon sx={{ color: "#4f7a20" }} />
-        <Typography ml={3}>
-          You have 20 messages left on this free trial
-        </Typography>
-      </Box>
       <Box position='relative' sx={{ width: "100%" }}>
         {openHelpModal && (
           <Box
@@ -99,7 +84,7 @@ const BottomInput: React.FC<any> = ({ mutation, onChange, question }: any) => {
                 p={3}
                 borderRadius='8px'
                 mb={2}
-                onClick={() => setInputText(item.title)}
+                onClick={() => onChange(item.title)}
               >
                 <Typography>{item.title}</Typography>
                 <Typography color='#70707B'>{item.description}</Typography>
@@ -108,10 +93,9 @@ const BottomInput: React.FC<any> = ({ mutation, onChange, question }: any) => {
           </Box>
         )}
         <TextField
-          value={inputText}
+          value={question}
           onChange={(e) => {
-            setInputText(e?.target?.value);
-            onChange(inputText);
+            onChange(e?.target?.value);
           }}
           placeholder='Please describe your symptoms'
           variant='outlined'
@@ -123,7 +107,7 @@ const BottomInput: React.FC<any> = ({ mutation, onChange, question }: any) => {
                 {" "}
                 <Button
                   sx={{ py: 2, bgcolor: "#4F7A21" }}
-                  onClick={() => mutation.mutate({ message: inputText })}
+                  onClick={() => mutation.mutate({ message: question })}
                 >
                   {mutation.isPending ? (
                     <Typography

@@ -11,6 +11,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 function App() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [openDisclaimer, setOpenDisclaimer] = useState(true);
 
   const mutation = useMutation({
     mutationFn: (message: Object) => {
@@ -27,20 +28,35 @@ function App() {
     },
   });
 
-  // const history = useQuery({
-  //   queryKey: ["history"],
-  //   queryFn: () => http.get("history/"),
-  // });
+  const history = useQuery({
+    queryKey: ["history"],
+    queryFn: () => http.get("history/"),
+  });
+
+  console.log("history", history.data?.data?.messages);
 
   return (
     <Box>
       <Navbar />
-      <SingleChatBlock
-        isLoading={mutation.isPending}
-        question={question}
-        answer={answer}
-      />
-      {/* <ButtomDialog /> */}
+
+      <Box height='60vh' overflow='auto'>
+        {history.data?.data?.messages.map((historyItem: any) => {
+          return (
+            <SingleChatBlock
+              answer={historyItem.content}
+              role={historyItem.role}
+            />
+          );
+        })}
+      </Box>
+      <Box p={3}>
+        <SingleChatBlock
+          isLoading={mutation.isPending}
+          question={question}
+          answer={answer}
+        />
+      </Box>
+      {openDisclaimer && <ButtomDialog setOpenDisclaimer={setOpenDisclaimer} />}
       <Box display='flex' alignItems='center' justifyContent='center'>
         <BottomInput
           mutation={mutation}
