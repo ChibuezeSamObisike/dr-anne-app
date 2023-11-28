@@ -53,7 +53,7 @@ const SingleChatBlock = ({ question, answer, isLoading, role }: any) => {
         >
           {isLoading || !answer ? null : (
             <Box width='40px'>
-              {" "}
+              l{" "}
               {role && role !== "assistant" ? (
                 <ChatUserIcon />
               ) : (
@@ -67,8 +67,9 @@ const SingleChatBlock = ({ question, answer, isLoading, role }: any) => {
             <Typography
               component='div'
               sx={{ marginRight: "50px", width: "80%" }}
-              dangerouslySetInnerHTML={{ __html: answer }}
-            ></Typography>
+            >
+              {answer}
+            </Typography>
           )}
         </Box>
       </Container>
